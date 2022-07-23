@@ -16,7 +16,7 @@ const adminUpdate = {
             </header>
             <div class="grid grid-cols-8">
                 <div class="col-span-2">${adminSidebar.render()}</div>
-                <div class="col-span-6 text-[#5F5E61] px-6">
+                <div class="col-span-6 text-[#5F5E61] px-6 bg-[#FBFBFB]">
                     <h2 class="font-bold text-[23px] mt-4">Cập nhật sản phẩm</h2>
                     <div class="grid grid-cols-5">
                         <div class="col-span-2 mx-6">
@@ -41,14 +41,16 @@ const adminUpdate = {
                                 <div class="w-full grid grid-cols-2 gap-2 mb-3">
                                     <div>
                                         <lable>Giá gốc</lable>
-                                        <input required type="number" class="border block w-full rounded py-1 pl-2" id="original-price" value="${detail.originalPrice}">
+                                        <input required type="text" class="border block w-full rounded py-1 pl-2" id="original-price" value="${detail.originalPrice}">
+                                        <div class="" id="validate"></div>
                                     </div>
                                     <div>
                                         <lable>Giá khuyến mãi</lable>
-                                        <input required type="number" class="border block w-full rounded py-1 pl-2" id="sale-price" value="${detail.salePrice}">
+                                        <input required type="text" class="border block w-full rounded py-1 pl-2" id="sale-price" value="${detail.salePrice}">
+                                        <div class="" id="validate"></div>
                                     </div>
                                 </div>
-                                <div class="mb-3 w-full grid grid-cols-2">
+                                <div class="mb-3 w-full grid grid-cols-2 gap-2">
                                     <div class="col-span-1">
                                         <div class="flex items-center space-x-3 mb-2">
                                             <lable>Danh mục</lable>
@@ -56,12 +58,17 @@ const adminUpdate = {
                                                 ${categories.map(item => `<option>${item.name}</option>`).join('')}
                                             </select>
                                         </div>
-                                        <input required disabled type="text" class="w-full border rounded py-1 pl-2" value="${detail.category}">
+                                        <input required disabled type="text" class="w-full border rounded py-1 pl-2 bg-white" value="${detail.category}">
                                     </div>
                                 </div>
+                                
                                 <div class="mb-3">
                                     <label>Mô tả dài</label>
                                     <textarea class="block border w-full p-2" cols="30" rows="5" id="desc">${detail.desc}</textarea>
+                                </div>
+                                <div class="flex items-center space-x-2 mb-3">
+                                    <input id="isHidden" type="checkbox"> 
+                                    <lable>Ẩn sản phẩm</lable>
                                 </div>
                                 <button class="bg-[#00B0D7] border border-[#007BFF] rounded text-white py-2 px-4">Cập nhật</button>
                             </form>
@@ -73,6 +80,7 @@ const adminUpdate = {
         `
     },
     afterRender: async (param: Number) => {
+        const isHidden: any = document.querySelector('#isHidden')
         const formUpdate = document.querySelector("#form-update")
         const editFile = document.querySelector('#edit-file')
         const editImage: any = document.querySelector('#image')
@@ -87,6 +95,11 @@ const adminUpdate = {
         const desc: any = document.querySelector('#desc')
         const img: any = editImage.src
 
+        if (newData.isHidden == true) {
+            isHidden.checked = newData.isHidden
+        } else {
+            isHidden.checked = false
+        }
         formUpdate?.addEventListener('submit', (e) => {
             e.preventDefault()
             newData.name = name.value
@@ -100,6 +113,11 @@ const adminUpdate = {
                 newData.image = img
             }
 
+            if (isHidden.checked == false) {
+                newData.isHidden = isHidden.checked
+            } else {
+                newData.isHidden = isHidden.checked
+            }
 
             const updateProd: any = Update(param, newData)
             if (updateProd) {
@@ -123,6 +141,7 @@ const adminUpdate = {
             }
 
         })
+
     }
 }
 

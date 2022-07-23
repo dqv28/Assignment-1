@@ -13,7 +13,7 @@ export interface componentBase {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  async function print(component: componentBase, id?: Number) {
+  async function print(component: componentBase, id: Number) {
     app.innerHTML = await component.render(id)
     if (component.afterRender) {
       await component.afterRender(id)
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '/add-product': () => {
       print(adminAdd)
     },
-    '/edit/:id': (param: Number) => {
+    '/edit/:id': (param: number) => {
       const id = +param.data.id
       print(adminUpdate, id)
     }

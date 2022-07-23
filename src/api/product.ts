@@ -16,6 +16,10 @@ export const Add = (data: any) => {
     return instance.post('/products', data)
 }
 
+export const Remove = (id: Number) => {
+    return instance.delete(`/products/${id}`)
+}
+
 export const Update = (id: Number, data: any) => {
     return instance.put(`/products/${id}`, data)
 }

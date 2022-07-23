@@ -14,7 +14,7 @@ const adminAdd = {
             </header>
             <div class="grid grid-cols-8">
                 <div class="col-span-2">${adminSidebar.render()}</div>
-                <div class="col-span-6 text-[#5F5E61] px-6">
+                <div class="col-span-6 text-[#5F5E61] px-6 bg-[#FBFBFB]">
                     <h2 class="font-bold text-[23px] mt-4">Thêm sản phẩm mới</h2>
                     <form id="form-add" class="grid grid-cols-5">
                         <div class="col-span-2 mx-6">
@@ -38,11 +38,13 @@ const adminAdd = {
                                 <div class="w-full grid grid-cols-2 gap-2 mb-3">
                                     <div>
                                         <lable>Giá gốc</lable>
-                                        <input type="number" class="border block w-full rounded py-1 pl-2" id="original-price" required>
+                                        <input type="text" class="border block w-full rounded py-1 pl-2" id="original-price" required>
+                                        <div class="" id="validate"></div>
                                     </div>
                                     <div>
                                         <lable>Giá khuyến mãi</lable>
-                                        <input type="number" class="border block w-full rounded py-1 pl-2" id="sale-price" required>
+                                        <input type="text" class="border block w-full rounded py-1 pl-2" id="sale-price" required>
+                                        <div class="" id="validate"></div>
                                     </div>
                                 </div>
                                 <div class="mb-3 w-full grid grid-cols-2">
@@ -81,7 +83,12 @@ const adminAdd = {
             const category: any = document.querySelector('#category')
             const desc: any = document.querySelector('#desc')
             const img: any = editImage.src
-            // console.log(desc.value);
+            const validate = document.querySelectorAll("#validate")
+
+            // if (ogPrice.value && ogPrice.value != Number) {
+            //     validate[0].value.innerHTML = "Vui lòng nhập số"
+            // }
+
             const product: Product = {
                 name: name.value,
                 originalPrice: parseInt(ogPrice.value),
@@ -97,8 +104,6 @@ const adminAdd = {
                 alert("Thêm thành công")
                 location.href = '/'
             }
-
-
         })
 
         editFile?.addEventListener('change', (event: any) => {
@@ -112,7 +117,6 @@ const adminAdd = {
                 // console.log(data);
 
             }
-
         })
     }
 }
